@@ -10,6 +10,7 @@ const Login = () => {
   const { setJwtToken } = useOutletContext();
   const { setAlertClass } = useOutletContext();
   const { setAlertMessage } = useOutletContext();
+  const { toggleRefresh } = useOutletContext();
 
   const navigate = useNavigate();
 
@@ -30,6 +31,7 @@ const Login = () => {
       credentials: 'include',
       body: JSON.stringify(payload),
     }
+
     fetch(`/authenticate`, requestOptions)
       .then(response => response.json())
       .then(data => {
@@ -37,9 +39,11 @@ const Login = () => {
           setAlertClass("alert-danger")
           setAlertMessage(data.message)
         } else {
+          console.log(data.access_token)
           setJwtToken(data.access_token)
           setAlertClass("d-none")
           setAlertMessage("")
+          toggleRefresh(true)
           navigate("/")
         }
       })

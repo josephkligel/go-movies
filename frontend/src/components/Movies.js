@@ -15,7 +15,6 @@ const Movies = () => {
       .then(response => response.json())
       .then(data => {
         setMovies(data);
-        console.log(data);
       })
       .catch(error => console.log(error));
   }, []);
